@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "2TX9quo6pHg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ryanw\\.nuget\\packages\\htmlagilitypack\\1.12.1\\htmlagilitypack.1.12.1.nupkg.sha512"
+  ],
+  "logs": []
+}
