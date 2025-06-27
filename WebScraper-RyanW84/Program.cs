@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Spectre.Console;
 
 namespace WebScraper_RyanW84
@@ -22,18 +20,13 @@ namespace WebScraper_RyanW84
             var tableHeadingsNodes = document.DocumentNode.SelectNodes( // Table headings
                 "//*[@id=\"confs_standings_E\"]/thead/tr/th"
             );
-            var tableDataNodes = document.DocumentNode.SelectNodes( // Data
-                "//*[@id=\"confs_standings_E\"]/tbody/tr"
-            );
+
+            int i = 1; // Used to increment the row number
 
             string[] tableHeadings =
                 tableHeadingsNodes != null
-                    ? [..tableHeadingsNodes.Select(node => node.InnerText)] // segment into array for table output
+                    ? [.. tableHeadingsNodes.Select(node => node.InnerText)] // segment into array for table output
                     : []; // Handle null case
-            string[] tableData =
-                tableDataNodes != null
-                    ? [.. tableDataNodes.Select(node => node.InnerText)] // segment into array for table output
-					: []; // Handle null case
 
             AnsiConsole.Write(
                 new Rule("[bold italic blue]Basketball Results Scrape[/]")
@@ -43,21 +36,30 @@ namespace WebScraper_RyanW84
 
             Console.WriteLine(title);
             Console.WriteLine();
-            Console.WriteLine(subHeading);
 
             Table table = new Table();
             foreach (var column in tableHeadings)
             {
                 table.AddColumn(column);
             }
-            foreach (var row in tableData)
+            while (i < 15)
             {
-                table.AddRow(row);
+                var tableDataNodes = document.DocumentNode.SelectNodes( // Data
+                    $"//*[@id=\"confs_standings_E\"]/tbody/tr[{i}]/th|//*[@id=\"confs_standings_E\"]/tbody/tr[{i}]/td"
+                );
+
+                string[] tableData =
+                    tableDataNodes != null
+                        ? [.. tableDataNodes.Select(node => node.InnerText)] // segment into array for table output
+                        : []; // Handle null case
+
+                i++;
+
+                table.AddRow(tableData);
             }
             AnsiConsole.Write(table);
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
-            
         }
     }
 }
