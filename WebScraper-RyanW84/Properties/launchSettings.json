@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WebScraper-RyanW84": {
+      "commandName": "Project",
+      "commandLineArgs": "-B",
+      "workingDirectory": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84"
+    }
+  }
+}

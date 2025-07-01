@@ -5,9 +5,15 @@ namespace WebScraper_RyanW84.Service
     public class TimerChecker
     {
         internal Timer checker;
-        readonly BasketballScraper basketballScraper = new ();
+        readonly BasketballScraper basketballScraper = new();
 
-        public void SetTimer()
+        private void TimerCallback(object? state)
+        {
+            basketballScraper.Run();
+            SetTimer(); // Reschedule for the next day
+        }
+
+        public async Task SetTimer()
         {
             try
             {
@@ -16,7 +22,7 @@ namespace WebScraper_RyanW84.Service
                     DateTime.Now.Month,
                     DateTime.Now.Day,
                     21,
-                    30,
+                    50,
                     0
                 );
                 var span = due.Subtract(DateTime.Now);
@@ -28,13 +34,13 @@ namespace WebScraper_RyanW84.Service
                 }
 
                 AnsiConsole.Markup(
-                    "...setting scraper to check at {0:dd MMM yyyy HH:mm} (~{1} minutes)",
+                    "...setting scraper to check at {0:dd MMM yyyy HH:mm} (~{1} minutes)\n",
                     due,
                     Math.Round(span.TotalMinutes, 0)
                 );
 
                 checker = new Timer(
-                    ob => basketballScraper.Run(),
+                    TimerCallback,
                     null,
                     (long)span.TotalMilliseconds,
                     Timeout.Infinite
