@@ -1,24 +1,28 @@
-﻿using Spectre.Console;
-
+﻿using Microsoft.Extensions.Configuration;
+using Spectre.Console;
 using WebScraper_RyanW84.Service;
-using WebScraper_RyanW84.UI;
 
 namespace WebScraper_RyanW84;
 
 public class WebScraper
 {
-	public static async Task Main(string[] args)
-	{
-		// Create an instance of TimerChecker to call the non-static method SetTimer  
-		var timerChecker = new TimerChecker();
+    public static async Task Main(string[] args)
+    {
+        var builder = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", optional: true)
+            .AddUserSecrets<WebScraper>()
+            .AddEnvironmentVariables();
 
-		if (args.Length > 0 && (args[0] is "-B" or "-b"))
-		{
-			AnsiConsole.MarkupLine("[Blue] running Basketball scraper as requested by args -B[/]");
-			await timerChecker.SetTimer();
-			await Task.Delay(Timeout.Infinite);
-		}
+        var configuration = builder.Build();
 
-		//Menu.DisplayMenu();
-	}
+        var basketballScraper = new BasketballScraper();
+        var timerChecker = new TimerChecker(configuration, basketballScraper);
+
+        if (args.Length > 0 && (args[0] is "-B" or "-b"))
+        {
+            AnsiConsole.MarkupLine("[Blue]Basketball Scraper selected by Args[/]");
+            await timerChecker.SetTimer();
+            await Task.Delay(Timeout.Infinite);
+        }
+    }
 }
