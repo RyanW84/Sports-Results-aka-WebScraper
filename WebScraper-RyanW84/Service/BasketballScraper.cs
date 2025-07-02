@@ -1,69 +1,95 @@
 ﻿using System.Net;
 using HtmlAgilityPack;
 using Spectre.Console;
+using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
 internal class BasketballScraper
 {
-	private const string Url = "https://www.basketball-reference.com/boxscores/";
-	private const string TableId = "confs_standings_E";
+    private const string Url = "https://www.basketball-reference.com/boxscores/";
+    private const string TableId = "confs_standings_E";
 
-	public void Run( )
-	{
-		var document = LoadDocument(Url);
-		var title = GetTitle(document);
-		var tableHeadings = GetTableHeadings(document);
+    public async Task<BasketballResults> Run()
+    {
+        var document = LoadDocument(Url);
+        var title = GetTitle(document);
+        var tableDetails = GetTableDetails(document);
 
-		AnsiConsole.Write(
-			new Rule("[bold italic blue]Basketball Results Scraper[/]").RuleStyle("blue").Centered()
-		);
+        AnsiConsole.Write(
+            new Rule("[bold italic blue]Basketball Results Scraper[/]").RuleStyle("blue").Centered()
+        );
 
-		Console.WriteLine(title);
-		Console.WriteLine();
+        Console.WriteLine(title);
+        Console.WriteLine();
 
-		var table = BuildTable(tableHeadings , document);
-		AnsiConsole.Write(table);
+        // Collect all rows into a multidimensional array
+        var allRows = GetAllTableRows(document);
 
-		Console.WriteLine("Press any key to continue");
-		Console.ReadKey();
-	}
+        var table = BuildTable(tableDetails, allRows);
+        AnsiConsole.Write(table);
 
-	HtmlDocument LoadDocument(string url)
-	{
-		var web = new HtmlWeb();
-		return web.Load(url);
-	}
+        AnsiConsole.MarkupLine("[Blue] Passing data for SendEmail[/]");
+        BasketballResults results = new BasketballResults
+        {
+            EmailTitle = title,
+            EmailTableHeadings = tableDetails,
+            EmailTableRows = allRows
+        };
 
-	string GetTitle(HtmlDocument document) =>
-		document.DocumentNode.SelectNodes("//div/h1")?.FirstOrDefault()?.InnerText ?? string.Empty;
+        Console.WriteLine("Press any key to continue");
 
-	internal string[] GetTableHeadings(HtmlDocument document) =>
-		document
-			.DocumentNode.SelectNodes($"//*[@id=\"{TableId}\"]/thead/tr/th")
-			?.Select(node => node.InnerText)
-			.ToArray() ?? Array.Empty<string>();
+        Console.ReadKey();
 
-	Table BuildTable(string[] headings , HtmlDocument document)
-	{
-		var table = new Table();
-		foreach (var heading in headings)
-			table.AddColumn(heading);
+        return results;
+    }
 
-		int row = 1;
-		while (true)
-		{
-			var dataNodes = document.DocumentNode.SelectNodes(
-				$"//*[@id=\"{TableId}\"]/tbody/tr[{row}]/th|//*[@id=\"{TableId}\"]/tbody/tr[{row}]/td"
-			);
-			if (dataNodes == null || dataNodes.Count == 0)
-				break;
+    HtmlDocument LoadDocument(string url)
+    {
+        var web = new HtmlWeb();
+        return web.Load(url);
+    }
 
-			var rowData = dataNodes.Select(node => WebUtility.HtmlDecode(node.InnerText)).ToArray();
+    string GetTitle(HtmlDocument document) =>
+        document.DocumentNode.SelectNodes("//div/h1")?.FirstOrDefault()?.InnerText ?? string.Empty;
 
-			table.AddRow(rowData);
-			row++;
-		}
-		return table;
-	}
+    internal string[] GetTableDetails(HtmlDocument document) =>
+        document
+            .DocumentNode.SelectNodes($"//*[@id=\"{TableId}\"]/thead/tr/th")
+            ?.Select(node => node.InnerText)
+            .ToArray() ?? Array.Empty<string>();
+
+    // New method to collect all rows as a multidimensional array
+    string[][] GetAllTableRows(HtmlDocument document)
+    {
+        var rows = new List<string[]>();
+        int row = 1;
+        while (true)
+        {
+            var dataNodes = document.DocumentNode.SelectNodes(
+                $"//*[@id=\"{TableId}\"]/tbody/tr[{row}]/th|//*[@id=\"{TableId}\"]/tbody/tr[{row}]/td"
+            );
+            if (dataNodes == null || dataNodes.Count == 0)
+                break;
+
+            var rowData = dataNodes.Select(node => WebUtility.HtmlDecode(node.InnerText)).ToArray();
+            rows.Add(rowData);
+            row++;
+        }
+        return rows.ToArray();
+    }
+
+    // Modified to accept allRows
+    Table BuildTable(string[] headings, string[][] allRows)
+    {
+        var table = new Table();
+        foreach (var heading in headings)
+            table.AddColumn(heading);
+
+        foreach (var rowData in allRows)
+        {
+            table.AddRow(rowData);
+        }
+        return table;
+    }
 }
