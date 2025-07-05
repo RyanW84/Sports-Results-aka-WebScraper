@@ -16,7 +16,8 @@ public class WebScraper
         var configuration = builder.Build();
 
         var basketballScraper = new BasketballScraper();
-        var timerChecker = new TimerChecker(configuration, basketballScraper);
+        var emailService = new Email(configuration);  // Create an instance of Email service
+        var timerChecker = new TimerChecker(configuration, basketballScraper, emailService);
 
         if (args.Length > 0 && (args[0] is "-B" or "-b"))
         {

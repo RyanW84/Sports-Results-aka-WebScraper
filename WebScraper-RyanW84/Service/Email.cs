@@ -2,18 +2,24 @@
 using MimeKit;
 using Microsoft.Extensions.Configuration;
 using WebScraper_RyanW84.Models;
+using WebScraper_RyanW84.Service;
 
 namespace WebScraper_RyanW84.Service;
 
-public class Email
+public class Email : IEmailService  // Implement the IEmailService interface
 {
     private readonly IConfiguration _config;
 
     public Email(IConfiguration config) => _config = config;
 
-    public async Task SendEmail(BasketballResults results)
+    public async Task SendEmail(BasketballResults results)  // This method now implements the interface
     {
+        // Rest of the existing code remains the same
         var email = new MimeMessage();
+     
+    
+
+
         email.From.Add(new MailboxAddress("Ryan Weavers", "ryanweavers@gmail.com"));
         email.To.Add(new MailboxAddress("Bob Jones", "ryanweavers@gmail.com"));
         email.Subject = $"{results.EmailTitle} {DateTime.Now}";

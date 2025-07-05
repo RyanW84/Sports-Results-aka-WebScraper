@@ -1,73 +1,94 @@
 ﻿using Microsoft.Extensions.Configuration;
-
-using Spectre.Console;
-
 namespace WebScraper_RyanW84.Service
 {
-	public class TimerChecker
-	{
-		private readonly IConfiguration configuration;
-		internal Timer checker;
-		internal readonly BasketballScraper basketballScraper;
+    public interface IEmailService
+    {
+        Task SendEmail(BasketballResults results);
+    }
 
-		public TimerChecker(IConfiguration configuration , BasketballScraper basketballScraper)
-		{
-			this.configuration = configuration;
-			this.basketballScraper = basketballScraper;
-		}
+    public class TimerChecker
+    {
+        private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
+        private readonly BasketballScraper _basketballScraper;
+        internal Timer _checker;
 
-		private async void TimerCallback(object state)
-		{
-			try
-			{
-				var results = await basketballScraper.Run(); // Await the Task to get BasketballResults
-				var email = new Email(configuration);
-				await email.SendEmail(results); // Pass the resolved BasketballResults object
-				await SetTimer(); // Reschedule for the next day
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error: {ex}");
-			}
-		}
+        public TimerChecker(
+            IConfiguration configuration,
+            BasketballScraper basketballScraper,
+            IEmailService emailService)
+        {
+            _configuration = configuration;
+            _basketballScraper = basketballScraper;
+            _emailService = emailService;
+        }
 
-		public async Task SetTimer( )
-		{
-			try
-			{
-				var due = new DateTime(
-					DateTime.Now.Year ,
-					DateTime.Now.Month ,
-					DateTime.Now.Day ,
-					22 ,
-					11 ,
-					0
-				);
-				var span = due.Subtract(DateTime.Now);
+        private void TimerCallback(object state)
+        {
+            // Create a Task to handle the async work
+            Task.Run(async () =>
+            {
+                try
+                {
+                    var results = await _basketballScraper.Run();
+                    await SendBasketballResults(results);
+                    await SetTimer();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex}");
+                }
+            }).ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
+                    Console.WriteLine($"Background task error: {t.Exception}");
+                }
+            }, TaskScheduler.Current);
+        }
 
-				while (span.TotalMilliseconds < 0)
-				{
-					due = due.AddDays(1);
-					span = due.Subtract(DateTime.Now);
-				}
+        private async Task SendBasketballResults(BasketballResults results)
+        {
+            await _emailService.SendEmail(results);
+        }
 
-				AnsiConsole.MarkupLine(
-					"[Bold Italic Green]Setting scraper to check at {0:dd MMM yyyy HH:mm} (~{1} minutes)[/]" ,
-					due ,
-					Math.Round(span.TotalMinutes , 0)
-				);
+        public async Task SetTimer()
+        {
+            try
+            {
+                var due = new DateTime(
+                    DateTime.Now.Year,
+                    DateTime.Now.Month,
+                    DateTime.Now.Day,
+                    21,
+                    27,
+                    0
+                );
+                var span = due.Subtract(DateTime.Now);
 
-				checker = new Timer(
-					TimerCallback ,
-					null ,
-					(long)span.TotalMilliseconds ,
-					Timeout.Infinite
-				);
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine($"Error: {ex}");
-			}
-		}
-	}
+                while (span.TotalMilliseconds < 0)
+                {
+                    due = due.AddDays(1);
+                    span = due.Subtract(DateTime.Now);
+                }
+
+                AnsiConsole.MarkupLine(
+                    "[Bold Italic Green]Setting scraper to check at {0:dd MMM yyyy HH:mm} (~{1} minutes)[/]",
+                    due,
+                    Math.Round(span.TotalMinutes, 0)
+                );
+
+                _checker = new Timer(
+                    TimerCallback,
+                    null,
+                    (long)span.TotalMilliseconds,
+                    Timeout.Infinite
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex}");
+            }
+        }
+    }
 }
