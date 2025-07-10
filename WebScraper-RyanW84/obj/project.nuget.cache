@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sa4nDtBNYEg=",
+  "dgSpecHash": "86OhOZ3yU1E=",
   "success": true,
   "projectFilePath": "/home/ryanw/Documents/GitHub/Sports-Results-aka-WebScraper/WebScraper-RyanW84/WebScraper-RyanW84.csproj",
   "expectedPackageFiles": [
@@ -37,10 +37,9 @@
     "/home/ryanw/.nuget/packages/mimekit/4.13.0/mimekit.4.13.0.nupkg.sha512",
     "/home/ryanw/.nuget/packages/spectre.console/0.50.0/spectre.console.0.50.0.nupkg.sha512",
     "/home/ryanw/.nuget/packages/system.diagnostics.eventlog/9.0.6/system.diagnostics.eventlog.9.0.6.nupkg.sha512",
-    "/home/ryanw/.nuget/packages/system.security.cryptography.pkcs/8.0.1/system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
-    "/home/ryanw/.nuget/packages/microsoft.netcore.app.ref/9.0.5/microsoft.netcore.app.ref.9.0.5.nupkg.sha512",
-    "/home/ryanw/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.5/microsoft.aspnetcore.app.ref.9.0.5.nupkg.sha512",
-    "/home/ryanw/.nuget/packages/microsoft.netcore.app.host.linux-x64/9.0.5/microsoft.netcore.app.host.linux-x64.9.0.5.nupkg.sha512"
+    "/home/ryanw/.nuget/packages/system.formats.asn1/8.0.1/system.formats.asn1.8.0.1.nupkg.sha512",
+    "/home/ryanw/.nuget/packages/system.memory/4.6.3/system.memory.4.6.3.nupkg.sha512",
+    "/home/ryanw/.nuget/packages/system.security.cryptography.pkcs/8.0.1/system.security.cryptography.pkcs.8.0.1.nupkg.sha512"
   ],
   "logs": []
 }

@@ -10,7 +10,7 @@ public class BasketballScraper
     private const string Url = "https://www.basketball-reference.com/boxscores/";
     private const string TableId = "confs_standings_E";
 
-    public async Task<BasketballResults> Run()
+    public async Task<Results> Run()
     {
         var document = LoadDocument(Url);
         var title = GetTitle(document);
@@ -30,7 +30,7 @@ public class BasketballScraper
         AnsiConsole.Write(table);
 
         AnsiConsole.MarkupLine("[Blue] Passing data for SendEmail[/]");
-        BasketballResults results = new BasketballResults
+        var results = new Results
         {
             EmailTitle = title,
             EmailTableHeadings = tableDetails,
@@ -44,26 +44,30 @@ public class BasketballScraper
         return results;
     }
 
-    HtmlDocument LoadDocument(string url)
+    private HtmlDocument LoadDocument(string url)
     {
         var web = new HtmlWeb();
         return web.Load(url);
     }
 
-    string GetTitle(HtmlDocument document) =>
-        document.DocumentNode.SelectNodes("//div/h1")?.FirstOrDefault()?.InnerText ?? string.Empty;
+    private string GetTitle(HtmlDocument document)
+    {
+        return document.DocumentNode.SelectNodes("//div/h1")?.FirstOrDefault()?.InnerText ?? string.Empty;
+    }
 
-    internal string[] GetTableDetails(HtmlDocument document) =>
-        document
+    internal string[] GetTableDetails(HtmlDocument document)
+    {
+        return document
             .DocumentNode.SelectNodes($"//*[@id=\"{TableId}\"]/thead/tr/th")
             ?.Select(node => node.InnerText)
             .ToArray() ?? Array.Empty<string>();
+    }
 
     // New method to collect all rows as a multidimensional array
-    string[][] GetAllTableRows(HtmlDocument document)
+    private string[][] GetAllTableRows(HtmlDocument document)
     {
         var rows = new List<string[]>();
-        int row = 1;
+        var row = 1;
         while (true)
         {
             var dataNodes = document.DocumentNode.SelectNodes(
@@ -76,20 +80,18 @@ public class BasketballScraper
             rows.Add(rowData);
             row++;
         }
+
         return rows.ToArray();
     }
 
     // Modified to accept allRows
-    Table BuildTable(string[] headings, string[][] allRows)
+    private Table BuildTable(string[] headings, string[][] allRows)
     {
         var table = new Table();
         foreach (var heading in headings)
             table.AddColumn(heading);
 
-        foreach (var rowData in allRows)
-        {
-            table.AddRow(rowData);
-        }
+        foreach (var rowData in allRows) table.AddRow(rowData);
         return table;
     }
 }

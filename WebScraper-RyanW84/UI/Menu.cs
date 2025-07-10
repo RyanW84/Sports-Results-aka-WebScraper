@@ -19,7 +19,7 @@ public static class Menu
             var choice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("[yellow]Please select an option[/]")
-                    .AddChoices(new[] { "Basketball Results Scraper", "Custom Scraper", "Exit" })
+                    .AddChoices("Basketball Results Scraper", "Custom Scraper", "Exit")
             );
 
             switch (choice)
