@@ -4,6 +4,11 @@ using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
+public interface IScraper
+{
+    Task<Results> Run();
+}
+
 public interface IEmailService
 {
     Task SendEmail(Results results);
@@ -11,30 +16,29 @@ public interface IEmailService
 
 public class TimerChecker
 {
-    private readonly BasketballScraper _basketballScraper;
     private readonly IConfiguration _configuration;
     private readonly IEmailService _emailService;
+    private readonly IScraper _scraper;
     internal Timer Checker;
 
     public TimerChecker(
         IConfiguration configuration,
-        BasketballScraper basketballScraper,
+        IScraper scraper,
         IEmailService emailService)
     {
         _configuration = configuration;
-        _basketballScraper = basketballScraper;
+        _scraper = scraper;
         _emailService = emailService;
     }
 
     private void TimerCallback(object state)
     {
-        // Create a Task to handle the async work
         Task.Run(async () =>
         {
             try
             {
-                var results = await _basketballScraper.Run();
-                await SendBasketballResults(results);
+                var results = await _scraper.Run();
+                await _emailService.SendEmail(results);
                 await SetTimer();
             }
             catch (Exception ex)
@@ -47,11 +51,6 @@ public class TimerChecker
         }, TaskScheduler.Current);
     }
 
-    private async Task SendBasketballResults(Results results)
-    {
-        await _emailService.SendEmail(results);
-    }
-
     public async Task SetTimer()
     {
         try
@@ -60,9 +59,7 @@ public class TimerChecker
                 DateTime.Now.Year,
                 DateTime.Now.Month,
                 DateTime.Now.Day,
-                21,
-                27,
-                0
+                22, 04, 0
             );
             var span = due.Subtract(DateTime.Now);
 

@@ -5,7 +5,7 @@ using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
-public class BasketballScraper
+public class BasketballScraper : IScraper
 {
     private const string Url = "https://www.basketball-reference.com/boxscores/";
     private const string TableId = "confs_standings_E";

@@ -3,7 +3,9 @@ using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
-public class HalestormScraper
+public class HalestormScraper : IScraper
+
+
 {
     private const string GigsUrl = "https://www.halestormrocks.com/tour";
 
