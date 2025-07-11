@@ -1,15 +1,9 @@
-using HtmlAgilityPack;
 using Spectre.Console;
 
-namespace WebScraper_RyanW84.Helpers;
+namespace WebScraper_RyanW84.Service;
 
-internal class Helpers
+public class Helpers
 {
-    internal HtmlDocument LoadDocument(string url)
-    {
-        var web = new HtmlWeb();
-        return web.Load(url);
-    }
     internal Table BuildTable(string[] headings, string[][] allRows)
     {
         var table = new Table();
@@ -21,8 +15,7 @@ internal class Helpers
     }
 
     public void DisplayTable(Table table)
-    { 
-        
+    {
         AnsiConsole.Write(table);
     }
 }

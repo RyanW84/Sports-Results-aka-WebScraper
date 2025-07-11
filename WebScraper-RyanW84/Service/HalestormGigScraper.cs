@@ -1,104 +1,102 @@
 using HtmlAgilityPack;
-using WebScraper_RyanW84.Models;
 using Spectre.Console;
+using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
-public class HalestormScraper : IScraper
-
-
+public class HalestormScraper(Helpers helpers) : IScraper
 {
-    private const string GigsUrl = "https://www.halestormrocks.com/tour";
+    private const string Url = "https://www.halestormrocks.com/tour";
+    private const string TourDateClass = "tour-date";
 
     public async Task<Results> Run()
     {
+        var document = await LoadDocument(Url);
+        var title = GetTitle(document);
+        var tableDetails = GetTableDetails(document);
+        var allRows = GetAllTableRows(document);
+
+        DisplayScraperInfo(title);
+
+        var results = new Results
+        {
+            EmailTitle = title,
+            EmailTableHeadings = tableDetails,
+            EmailTableRows = allRows
+        };
+
+        helpers.DisplayTable(helpers.BuildTable(tableDetails, allRows));
+        return results;
+    }
+
+    private async Task<HtmlDocument> LoadDocument(string url)
+    {
         using var httpClient = new HttpClient();
-        var html = await httpClient.GetStringAsync(GigsUrl);
+        var html = await httpClient.GetStringAsync(url);
         var doc = new HtmlDocument();
         doc.LoadHtml(html);
-        
-        AnsiConsole.Write(
-            new Rule("[bold italic Yellow]Halestorm Gigs scraper[/]").RuleStyle("Yellow").Centered()
-        );
+        return doc;
+    }
 
-        // 1. Get page <title> for EmailTitle
-        var titleNode = doc.DocumentNode.SelectSingleNode("//title");
-        var title = titleNode?.InnerText.Trim() ?? "Halestorm Upcoming Gigs";
+    private string GetTitle(HtmlDocument document)
+    {
+        return document.DocumentNode.SelectSingleNode("//title")?.InnerText.Trim() 
+            ?? "Halestorm Upcoming Gigs";
+    }
 
-        // 2. Try to get table headings (varies by website structure!)
-        var headings = new List<string>();
+    private string[] GetTableDetails(HtmlDocument document)
+    {
+       string[] tableHeadings =document.DocumentNode.SelectSingleNode("//div[contains(@class, 'tour-date-container')]")?.InnerText.Split("\n");
+       return tableHeadings;
+    }
 
-        // Option 1: Standard <th> (in table or header row)
-        var thNodes = doc.DocumentNode.SelectNodes("//th");
-        if (thNodes is { Count: > 0 })
-        {
-            foreach (var th in thNodes)
-                headings.Add(th.InnerText.Trim());
-        }
-        else
-        {
-            // Option 2: Headings as divs right above event row (common in modern designs)
-            // Look for a parent of first event/gig with label-style children
-            var firstEventNode = doc.DocumentNode.SelectSingleNode("//div[contains(@class, 'tour-date')]");
-            var headingsNode = firstEventNode?.ParentNode
-                .SelectSingleNode(
-                    ".//div[contains(@class, 'row') or contains(@class, 'head') or contains(@class, 'header')]");
-            if (headingsNode != null)
-            {
-                // Get all immediate children that look like headings
-                var hDivs = headingsNode.SelectNodes("./div") ?? headingsNode.SelectNodes("./span");
-                if (hDivs != null)
-                    foreach (var hd in hDivs)
-                    {
-                        var htxt = hd.InnerText.Trim();
-                        if (!string.IsNullOrWhiteSpace(htxt))
-                            headings.Add(htxt);
-                    }
-            }
-        }
-
-        // Fallback if none found
-        if (headings.Count == 0) headings.AddRange(["Date", "Venue", "Location", "More Info"]);
-
-        // 3. Scrape data rows
-        var gigNodes = doc.DocumentNode.SelectNodes("//div[contains(@class, 'tour-date')]");
-        var tableRows = new List<string[]>();
+    private string[][] GetAllTableRows(HtmlDocument document)
+    {
+        var gigNodes = document.DocumentNode.SelectNodes($"//div[contains(@class, '{TourDateClass}')]");
+        var rows = new List<string[]>();
 
         if (gigNodes != null)
+        {
             foreach (var node in gigNodes)
             {
-                var dateNode = node.SelectSingleNode(".//div[contains(@class, 'date')]");
-                var venueNode = node.SelectSingleNode(".//div[contains(@class, 'venue')]");
-                var cityNode = node.SelectSingleNode(".//div[contains(@class, 'location')]");
-                var linkNode = node.SelectSingleNode(".//a[contains(@class, 'ticket-link')]");
+                var date = ExtractNodeText(node, "date");
+                var venue = ExtractNodeText(node, "venue");
+                var location = ExtractNodeText(node, "location");
+                var moreInfo = ExtractLinkHref(node);
 
-                var date = dateNode?.InnerText.Trim() ?? "N/A";
-                var venue = venueNode?.InnerText.Trim() ?? "N/A";
-                var location = cityNode?.InnerText.Trim() ?? "N/A";
-                var moreInfo = linkNode?.GetAttributeValue("href", "") ?? "";
-
-                tableRows.Add([
+                rows.Add([
                     date,
                     venue,
                     location,
                     moreInfo
                 ]);
             }
+        }
 
-        return new Results
-        {
-            EmailTitle = title,
-            EmailTableHeadings = headings.ToArray(),
-            EmailTableRows = tableRows.ToArray()
-        };
+        return rows.ToArray();
     }
-    private Table BuildTable(string[] headings, string[][] allRows)
-    {
-        var table = new Table();
-        foreach (var heading in headings)
-            table.AddColumn(heading);
 
-        foreach (var rowData in allRows) table.AddRow(rowData);
-        return table;
+    private string ExtractNodeText(HtmlNode parentNode, string className)
+    {
+        return parentNode.SelectSingleNode($".//div[contains(@class, '{className}')]")?.InnerText.Trim() ?? "N/A";
+    }
+
+    private string ExtractLinkHref(HtmlNode parentNode)
+    {
+        return parentNode.SelectSingleNode(".//a[contains(@class, 'ticket-link')]")?
+            .GetAttributeValue("href", "") ?? "";
+    }
+
+    private void DisplayScraperInfo(string title)
+    {
+        AnsiConsole.Write(
+            new Rule("[bold italic yellow]Halestorm Gigs Scraper[/]")
+                .RuleStyle("yellow")
+                .Centered()
+        );
+
+        Console.WriteLine(title);
+        Console.WriteLine();
+        AnsiConsole.MarkupLine("[Yellow]Passing data for SendEmail[/]");
     }
 }

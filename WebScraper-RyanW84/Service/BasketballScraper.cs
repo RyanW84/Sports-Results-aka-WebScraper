@@ -2,7 +2,6 @@
 using HtmlAgilityPack;
 using Spectre.Console;
 using WebScraper_RyanW84.Models;
-using WebScraper_RyanW84.Helpers;
 
 namespace WebScraper_RyanW84.Service;
 
@@ -10,11 +9,20 @@ public class BasketballScraper : IScraper
 {
     private const string Url = "https://www.basketball-reference.com/boxscores/";
     private const string TableId = "confs_standings_E";
+    private const string TitleXpath = "//div/h1";
+    private readonly Helpers _helpers;
+
+    public BasketballScraper(Helpers helpers)
+    {
+        _helpers = helpers;
+    }
 
     public async Task<Results> Run()
     {
-        var document = LoadDocument(Url);
+        var document = await LoadDocument(Url);
         var title = GetTitle(document);
+        var headingsXpath = $"//*[@id=\"{TableId}\"]/thead/tr/th";
+        var rowsXpath = $"//*[@id=\"{TableId}\"]/tbody/tr";
         var tableDetails = GetTableDetails(document);
 
         AnsiConsole.Write(
@@ -35,19 +43,19 @@ public class BasketballScraper : IScraper
             EmailTableHeadings = tableDetails,
             EmailTableRows = allRows
         };
-        Helpers.DisplayTable();
+        _helpers.DisplayTable(_helpers.BuildTable(tableDetails, allRows));
         return results;
     }
 
-    private HtmlDocument LoadDocument(string url)
+    internal async Task<HtmlDocument> LoadDocument(string url)
     {
         var web = new HtmlWeb();
-        return web.Load(url);
+        return await web.LoadFromWebAsync(url);
     }
 
     private string GetTitle(HtmlDocument document)
     {
-        return document.DocumentNode.SelectNodes("//div/h1")?.FirstOrDefault()?.InnerText ?? string.Empty;
+        return document.DocumentNode.SelectNodes($"{TitleXpath}")?.FirstOrDefault()?.InnerText ?? "Basketball Results";
     }
 
     private string[] GetTableDetails(HtmlDocument document)

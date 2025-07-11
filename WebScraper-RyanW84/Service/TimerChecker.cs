@@ -14,44 +14,33 @@ public interface IEmailService
     Task SendEmail(Results results);
 }
 
-public class TimerChecker
+public class TimerChecker(
+    IConfiguration configuration,
+    IScraper scraper,
+    IEmailService emailService)
 {
-    private readonly IConfiguration _configuration;
-    private readonly IEmailService _emailService;
-    private readonly IScraper _scraper;
+    private readonly IConfiguration _configuration = configuration;
     internal Timer Checker;
 
-    public TimerChecker(
-        IConfiguration configuration,
-        IScraper scraper,
-        IEmailService emailService)
+    private async void TimerCallback(object state)
     {
-        _configuration = configuration;
-        _scraper = scraper;
-        _emailService = emailService;
+        try
+        {
+            var results = await scraper.Run();
+            if (results != null)
+                await emailService.SendEmail(results);
+            else
+                AnsiConsole.MarkupLine("[Bold  Red]Scraper returned null results[/]");
+
+            await SetTimer();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex}");
+        }
     }
 
-    private void TimerCallback(object state)
-    {
-        Task.Run(async () =>
-        {
-            try
-            {
-                var results = await _scraper.Run();
-                await _emailService.SendEmail(results);
-                await SetTimer();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex}");
-            }
-        }).ContinueWith(t =>
-        {
-            if (t.IsFaulted) Console.WriteLine($"Background task error: {t.Exception}");
-        }, TaskScheduler.Current);
-    }
-
-    public async Task SetTimer()
+    public Task SetTimer()
     {
         try
         {
@@ -59,7 +48,9 @@ public class TimerChecker
                 DateTime.Now.Year,
                 DateTime.Now.Month,
                 DateTime.Now.Day,
-                22, 04, 0
+                DateTime.Now.Hour,
+                45,
+                DateTime.Now.Second
             );
             var span = due.Subtract(DateTime.Now);
 
@@ -78,7 +69,7 @@ public class TimerChecker
             Checker = new Timer(
                 TimerCallback,
                 null,
-                (long)span.TotalMilliseconds,
+                (int)span.TotalMinutes,
                 Timeout.Infinite
             );
         }
@@ -86,5 +77,7 @@ public class TimerChecker
         {
             Console.WriteLine($"Error: {ex}");
         }
+
+        return Task.CompletedTask;
     }
 }

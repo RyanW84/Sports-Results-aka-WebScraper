@@ -7,6 +7,7 @@ internal class Program
 {
     private static async Task Main(string[] args)
     {
+        Helpers helpers = new();
         // Example: args = ["basketball"] or ["halestorm"]
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", true, true)
@@ -21,8 +22,8 @@ internal class Program
 
         IScraper scraper = args[0].ToLowerInvariant() switch
         {
-            "-h" => new HalestormScraper(),
-            "-b" => new BasketballScraper(),
+            "-h" => new HalestormScraper(helpers),
+            "-b" => new BasketballScraper(helpers),
             _ => throw new ArgumentException("Invalid scraper selection. Use '-h' or '-b'.")
         };
 
