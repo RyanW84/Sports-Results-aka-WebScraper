@@ -1,5 +1,6 @@
 using HtmlAgilityPack;
 using WebScraper_RyanW84.Models;
+using Spectre.Console;
 
 namespace WebScraper_RyanW84.Service;
 
@@ -15,6 +16,10 @@ public class HalestormScraper : IScraper
         var html = await httpClient.GetStringAsync(GigsUrl);
         var doc = new HtmlDocument();
         doc.LoadHtml(html);
+        
+        AnsiConsole.Write(
+            new Rule("[bold italic Yellow]Halestorm Gigs scraper[/]").RuleStyle("Yellow").Centered()
+        );
 
         // 1. Get page <title> for EmailTitle
         var titleNode = doc.DocumentNode.SelectSingleNode("//title");
@@ -35,23 +40,20 @@ public class HalestormScraper : IScraper
             // Option 2: Headings as divs right above event row (common in modern designs)
             // Look for a parent of first event/gig with label-style children
             var firstEventNode = doc.DocumentNode.SelectSingleNode("//div[contains(@class, 'tour-date')]");
-            if (firstEventNode != null)
+            var headingsNode = firstEventNode?.ParentNode
+                .SelectSingleNode(
+                    ".//div[contains(@class, 'row') or contains(@class, 'head') or contains(@class, 'header')]");
+            if (headingsNode != null)
             {
-                var headingsNode = firstEventNode.ParentNode
-                    .SelectSingleNode(
-                        ".//div[contains(@class, 'row') or contains(@class, 'head') or contains(@class, 'header')]");
-                if (headingsNode != null)
-                {
-                    // Get all immediate children that look like headings
-                    var hDivs = headingsNode.SelectNodes("./div") ?? headingsNode.SelectNodes("./span");
-                    if (hDivs != null)
-                        foreach (var hd in hDivs)
-                        {
-                            var htxt = hd.InnerText.Trim();
-                            if (!string.IsNullOrWhiteSpace(htxt))
-                                headings.Add(htxt);
-                        }
-                }
+                // Get all immediate children that look like headings
+                var hDivs = headingsNode.SelectNodes("./div") ?? headingsNode.SelectNodes("./span");
+                if (hDivs != null)
+                    foreach (var hd in hDivs)
+                    {
+                        var htxt = hd.InnerText.Trim();
+                        if (!string.IsNullOrWhiteSpace(htxt))
+                            headings.Add(htxt);
+                    }
             }
         }
 
@@ -89,5 +91,14 @@ public class HalestormScraper : IScraper
             EmailTableHeadings = headings.ToArray(),
             EmailTableRows = tableRows.ToArray()
         };
+    }
+    private Table BuildTable(string[] headings, string[][] allRows)
+    {
+        var table = new Table();
+        foreach (var heading in headings)
+            table.AddColumn(heading);
+
+        foreach (var rowData in allRows) table.AddRow(rowData);
+        return table;
     }
 }

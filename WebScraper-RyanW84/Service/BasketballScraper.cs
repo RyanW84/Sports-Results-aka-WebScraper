@@ -2,6 +2,7 @@
 using HtmlAgilityPack;
 using Spectre.Console;
 using WebScraper_RyanW84.Models;
+using WebScraper_RyanW84.Helpers;
 
 namespace WebScraper_RyanW84.Service;
 
@@ -26,8 +27,6 @@ public class BasketballScraper : IScraper
         // Collect all rows into a multidimensional array
         var allRows = GetAllTableRows(document);
 
-        var table = BuildTable(tableDetails, allRows);
-        AnsiConsole.Write(table);
 
         AnsiConsole.MarkupLine("[Blue] Passing data for SendEmail[/]");
         var results = new Results
@@ -36,11 +35,7 @@ public class BasketballScraper : IScraper
             EmailTableHeadings = tableDetails,
             EmailTableRows = allRows
         };
-
-        Console.WriteLine("Press any key to continue");
-
-        Console.ReadKey();
-
+        Helpers.DisplayTable();
         return results;
     }
 
@@ -55,12 +50,12 @@ public class BasketballScraper : IScraper
         return document.DocumentNode.SelectNodes("//div/h1")?.FirstOrDefault()?.InnerText ?? string.Empty;
     }
 
-    internal string[] GetTableDetails(HtmlDocument document)
+    private string[] GetTableDetails(HtmlDocument document)
     {
         return document
             .DocumentNode.SelectNodes($"//*[@id=\"{TableId}\"]/thead/tr/th")
             ?.Select(node => node.InnerText)
-            .ToArray() ?? Array.Empty<string>();
+            .ToArray() ?? [];
     }
 
     // New method to collect all rows as a multidimensional array
@@ -82,16 +77,5 @@ public class BasketballScraper : IScraper
         }
 
         return rows.ToArray();
-    }
-
-    // Modified to accept allRows
-    private Table BuildTable(string[] headings, string[][] allRows)
-    {
-        var table = new Table();
-        foreach (var heading in headings)
-            table.AddColumn(heading);
-
-        foreach (var rowData in allRows) table.AddRow(rowData);
-        return table;
     }
 }
