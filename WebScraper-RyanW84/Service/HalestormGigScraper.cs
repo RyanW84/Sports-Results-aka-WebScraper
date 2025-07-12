@@ -4,10 +4,16 @@ using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
-public class HalestormScraper(Helpers helpers) : IScraper
+public class HalestormScraper() : IScraper
 {
     private const string Url = "https://www.halestormrocks.com/tour";
     private const string TourDateClass = "tour-date";
+    private readonly Helpers _helpers;
+
+    public HalestormScraper(Helpers helpers) 
+    {
+        _helpers = helpers;
+    }
 
     public async Task<Results> Run()
     {
@@ -25,7 +31,7 @@ public class HalestormScraper(Helpers helpers) : IScraper
             EmailTableRows = allRows
         };
 
-        helpers.DisplayTable(helpers.BuildTable(tableDetails, allRows));
+        _helpers.DisplayTable(_helpers.BuildTable(tableDetails, allRows));
         return results;
     }
 
