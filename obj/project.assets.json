@@ -15,6 +15,18 @@
           }
         }
       },
+      "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+        "type": "package",
+        "dependencies": {
+          "Selenium.WebDriver": "3.10.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {}
+        }
+      },
       "HtmlAgilityPack/1.12.1": {
         "type": "package",
         "compile": {
@@ -638,6 +650,22 @@
           }
         }
       },
+      "Selenium.WebDriver/4.34.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/WebDriver.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/WebDriver.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/Selenium.WebDriver.targets": {}
+        }
+      },
       "Spectre.Console/0.50.0": {
         "type": "package",
         "dependencies": {
@@ -748,6 +776,21 @@
         "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
         "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
         "packageIcon.png"
+      ]
+    },
+    "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+      "sha512": "xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
+      "type": "package",
+      "path": "dotnetseleniumextras.waithelpers/3.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
+        "dotnetseleniumextras.waithelpers.nuspec",
+        "lib/net35/SeleniumExtras.WaitHelpers.dll",
+        "lib/net40/SeleniumExtras.WaitHelpers.dll",
+        "lib/net45/SeleniumExtras.WaitHelpers.dll",
+        "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll"
       ]
     },
     "HtmlAgilityPack/1.12.1": {
@@ -1708,6 +1751,28 @@
         "mimekit.nuspec"
       ]
     },
+    "Selenium.WebDriver/4.34.0": {
+      "sha512": "uNx+GF7WugHDPV2zpGDPlbSn3STQ6n0xFskFSeJdhEuuUTkIDfAsYnjVUiQidWDpy7mKzTz53ae7Thjghl3dng==",
+      "type": "package",
+      "path": "selenium.webdriver/4.34.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "build/Selenium.WebDriver.targets",
+        "buildTransitive/Selenium.WebDriver.targets",
+        "icon.png",
+        "lib/net8.0/WebDriver.dll",
+        "lib/net8.0/WebDriver.xml",
+        "lib/netstandard2.0/WebDriver.dll",
+        "lib/netstandard2.0/WebDriver.xml",
+        "manager/linux/selenium-manager",
+        "manager/macos/selenium-manager",
+        "manager/windows/selenium-manager.exe",
+        "selenium.webdriver.4.34.0.nupkg.sha512",
+        "selenium.webdriver.nuspec"
+      ]
+    },
     "Spectre.Console/0.50.0": {
       "sha512": "gkwYncFqMjlPF6Yz8KeVsKWpdfv15sr6uKm+vXVa/8Q4tvx52LPzMQOO5m+bXwI3AGGFeY3cok3ZJbguYizswg==",
       "type": "package",
@@ -1851,6 +1916,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "DotNetSeleniumExtras.WaitHelpers >= 3.11.0",
       "HtmlAgilityPack >= 1.12.1",
       "MailKit >= 4.13.0",
       "Microsoft.Extensions.Configuration >= 9.0.6",
@@ -1859,6 +1925,7 @@
       "Microsoft.Extensions.DependencyInjection >= 9.0.6",
       "Microsoft.Extensions.Hosting >= 9.0.6",
       "MimeKit >= 4.13.0",
+      "Selenium.WebDriver >= 4.34.0",
       "Spectre.Console >= 0.50.0"
     ]
   },
@@ -1869,11 +1936,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj",
+      "projectUniqueName": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj",
       "projectName": "WebScraper-RyanW84",
-      "projectPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj",
+      "projectPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj",
       "packagesPath": "C:\\Users\\Ryanw\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\obj\\",
+      "outputPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1912,6 +1979,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "DotNetSeleniumExtras.WaitHelpers": {
+            "target": "Package",
+            "version": "[3.11.0, )"
+          },
           "HtmlAgilityPack": {
             "target": "Package",
             "version": "[1.12.1, )"
@@ -1943,6 +2014,10 @@
           "MimeKit": {
             "target": "Package",
             "version": "[4.13.0, )"
+          },
+          "Selenium.WebDriver": {
+            "target": "Package",
+            "version": "[4.34.0, )"
           },
           "Spectre.Console": {
             "target": "Package",

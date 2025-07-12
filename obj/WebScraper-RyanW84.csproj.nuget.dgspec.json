@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj": {}
+    "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj": {
+    "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj",
+        "projectUniqueName": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj",
         "projectName": "WebScraper-RyanW84",
-        "projectPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj",
+        "projectPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj",
         "packagesPath": "C:\\Users\\Ryanw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\obj\\",
+        "outputPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "DotNetSeleniumExtras.WaitHelpers": {
+              "target": "Package",
+              "version": "[3.11.0, )"
+            },
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.12.1, )"
@@ -81,6 +85,10 @@
             "MimeKit": {
               "target": "Package",
               "version": "[4.13.0, )"
+            },
+            "Selenium.WebDriver": {
+              "target": "Package",
+              "version": "[4.34.0, )"
             },
             "Spectre.Console": {
               "target": "Package",

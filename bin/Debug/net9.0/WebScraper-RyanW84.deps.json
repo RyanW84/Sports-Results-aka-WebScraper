@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v9.0": {
       "WebScraper-RyanW84/1.0.0": {
         "dependencies": {
+          "DotNetSeleniumExtras.WaitHelpers": "3.11.0",
           "HtmlAgilityPack": "1.12.1",
           "MailKit": "4.13.0",
           "Microsoft.Extensions.Configuration": "9.0.6",
@@ -16,6 +17,7 @@
           "Microsoft.Extensions.DependencyInjection": "9.0.6",
           "Microsoft.Extensions.Hosting": "9.0.6",
           "MimeKit": "4.13.0",
+          "Selenium.WebDriver": "4.34.0",
           "Spectre.Console": "0.50.0"
         },
         "runtime": {
@@ -27,6 +29,17 @@
           "lib/net6.0/BouncyCastle.Cryptography.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.5.1.28965"
+          }
+        }
+      },
+      "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+        "dependencies": {
+          "Selenium.WebDriver": "4.34.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SeleniumExtras.WaitHelpers.dll": {
+            "assemblyVersion": "3.11.0.0",
+            "fileVersion": "3.11.0.0"
           }
         }
       },
@@ -421,6 +434,14 @@
           }
         }
       },
+      "Selenium.WebDriver/4.34.0": {
+        "runtime": {
+          "lib/net8.0/WebDriver.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
       "Spectre.Console/0.50.0": {
         "dependencies": {
           "System.Memory": "4.6.3"
@@ -444,7 +465,7 @@
             "rid": "win",
             "assetType": "runtime",
             "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.625.26613"
+            "fileVersion": "0.0.0.0"
           },
           "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.dll": {
             "rid": "win",
@@ -486,6 +507,13 @@
       "sha512": "sha512-zy8TMeTP+1FH2NrLaNZtdRbBdq7u5MI+NFZQOBSM69u5RFkciinwzV2eveY6Kjf5MzgsYvvl6kTStsj3JrXqkg==",
       "path": "bouncycastle.cryptography/2.5.1",
       "hashPath": "bouncycastle.cryptography.2.5.1.nupkg.sha512"
+    },
+    "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
+      "path": "dotnetseleniumextras.waithelpers/3.11.0",
+      "hashPath": "dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512"
     },
     "HtmlAgilityPack/1.12.1": {
       "type": "package",
@@ -696,6 +724,13 @@
       "sha512": "sha512-oa4JuhAzJydHnPCc/XWeyBUGd3uiVyWW0NXqOVgkXEHjbHlPVBssklK3mpw9sokjzAaBGdj0bceFsr+NXvAukA==",
       "path": "mimekit/4.13.0",
       "hashPath": "mimekit.4.13.0.nupkg.sha512"
+    },
+    "Selenium.WebDriver/4.34.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-uNx+GF7WugHDPV2zpGDPlbSn3STQ6n0xFskFSeJdhEuuUTkIDfAsYnjVUiQidWDpy7mKzTz53ae7Thjghl3dng==",
+      "path": "selenium.webdriver/4.34.0",
+      "hashPath": "selenium.webdriver.4.34.0.nupkg.sha512"
     },
     "Spectre.Console/0.50.0": {
       "type": "package",

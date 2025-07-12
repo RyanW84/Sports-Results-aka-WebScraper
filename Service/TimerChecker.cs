@@ -48,9 +48,9 @@ public class TimerChecker(
                 DateTime.Now.Year,
                 DateTime.Now.Month,
                 DateTime.Now.Day,
-                DateTime.Now.Hour,
-                DateTime.Now.Minute,
-                DateTime.Now.Second
+                15,
+                24,
+                0
             );
             var span = due.Subtract(DateTime.Now);
 

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "FQov+peI4LM=",
+  "dgSpecHash": "eoh3Szh1o8g=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\WebScraperv2\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84\\WebScraper-RyanW84.csproj",
+  "projectFilePath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\WebScraper-RyanW84.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ryanw\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
+    "C:\\Users\\Ryanw\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\htmlagilitypack\\1.12.1\\htmlagilitypack.1.12.1.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\mailkit\\4.13.0\\mailkit.4.13.0.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.6\\microsoft.extensions.configuration.9.0.6.nupkg.sha512",
@@ -35,6 +36,7 @@
     "C:\\Users\\Ryanw\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\9.0.6\\microsoft.extensions.options.configurationextensions.9.0.6.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.6\\microsoft.extensions.primitives.9.0.6.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\mimekit\\4.13.0\\mimekit.4.13.0.nupkg.sha512",
+    "C:\\Users\\Ryanw\\.nuget\\packages\\selenium.webdriver\\4.34.0\\selenium.webdriver.4.34.0.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\spectre.console\\0.50.0\\spectre.console.0.50.0.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\system.diagnostics.eventlog\\9.0.6\\system.diagnostics.eventlog.9.0.6.nupkg.sha512",
     "C:\\Users\\Ryanw\\.nuget\\packages\\system.formats.asn1\\8.0.1\\system.formats.asn1.8.0.1.nupkg.sha512",
