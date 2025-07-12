@@ -10,7 +10,7 @@ public class HalestormScraper() : IScraper
     private const string TourDateClass = "tour-date";
     private readonly Helpers _helpers;
 
-    public HalestormScraper(Helpers helpers) 
+    public HalestormScraper(Helpers helpers) :this()
     {
         _helpers = helpers;
     }
