@@ -58,7 +58,9 @@ public class HalestormScraper() : IScraper
 
     private string[][] GetAllTableRows(HtmlDocument document)
     {
-        var gigNodes = document.DocumentNode.SelectNodes($"//div[contains(@class, '{TourDateClass}')]");
+        try
+        {
+            var gigNodes = document.DocumentNode.SelectNodes($"//div[contains(@class, '{TourDateClass}')]");
         var rows = new List<string[]>();
 
         if (gigNodes != null)
@@ -80,6 +82,13 @@ public class HalestormScraper() : IScraper
         }
 
         return rows.ToArray();
+        }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine($"Error extracting table rows: {ex.Message}");
+            return Array.Empty<string[]>();
+        }
+        
     }
 
     private string ExtractNodeText(HtmlNode parentNode, string className)
