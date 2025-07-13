@@ -34,14 +34,14 @@ A C# web scraping application that monitors and notifies users about:
 ## Usage
 
 Run the application with one of the following flags:
+
 ### For basketball results
 dotnet run -- -b
-###For Halestorm events
+
+### For Halestorm events
 dotnet run -- -h
 
 ## Project Structure
-
-- `UI/` - User interface components
 - `Models/` - Data models
 - `Service/` - Core services including scrapers and email functionality
 - `Program.cs` - Application entry point
