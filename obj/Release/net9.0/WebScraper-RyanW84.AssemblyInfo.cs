@@ -13,7 +13,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("ac4898b5-3d97-441b-b24d-f568d11699eb")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebScraper-RyanW84")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d32a11d6247cdf6e8c4367e9a181008448ab99ce")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebScraper-RyanW84")]

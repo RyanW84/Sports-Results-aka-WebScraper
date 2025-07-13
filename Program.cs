@@ -8,10 +8,10 @@ namespace WebScraper_RyanW84;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static async Task Main(string[] args) // -h for Halestorm Gigs (set) or -b for Basketball Results
     {
         Helpers helpers = new();
-        // Example: args = ["basketball"] or ["halestorm"]
+      
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json", true, true)
             .AddUserSecrets<Program>()
