@@ -106,12 +106,16 @@ C:/Users/Ryanw/OneDrive/Documents/GitHub/Sports-Results-aka-WebScraper/WebScrape
 /home/ryanw/Documents/GitHub/Sports-Results-aka-WebScraper/WebScraper-RyanW84/obj/Debug/net9.0/WebScraper-RyanW84.pdb
 /home/ryanw/Documents/GitHub/Sports-Results-aka-WebScraper/WebScraper-RyanW84/obj/Debug/net9.0/WebScraper-RyanW84.genruntimeconfig.cache
 /home/ryanw/Documents/GitHub/Sports-Results-aka-WebScraper/WebScraper-RyanW84/obj/Debug/net9.0/ref/WebScraper-RyanW84.dll
+C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\selenium-manager\linux\selenium-manager
+C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\selenium-manager\macos\selenium-manager
+C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\selenium-manager\windows\selenium-manager.exe
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebScraper-RyanW84.exe
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebScraper-RyanW84.deps.json
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebScraper-RyanW84.runtimeconfig.json
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebScraper-RyanW84.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebScraper-RyanW84.pdb
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\SeleniumExtras.WaitHelpers.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\HtmlAgilityPack.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\MailKit.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\Microsoft.Extensions.Configuration.dll
@@ -142,6 +146,7 @@ C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\MimeKit.dll
+C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebDriver.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\Spectre.Console.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\System.Diagnostics.EventLog.dll
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\System.Security.Cryptography.Pkcs.dll
@@ -160,8 +165,3 @@ C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\obj\Debug
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\obj\Debug\net9.0\WebScraper-RyanW84.pdb
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\obj\Debug\net9.0\WebScraper-RyanW84.genruntimeconfig.cache
 C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\obj\Debug\net9.0\ref\WebScraper-RyanW84.dll
-C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\selenium-manager\linux\selenium-manager
-C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\selenium-manager\macos\selenium-manager
-C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\selenium-manager\windows\selenium-manager.exe
-C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\SeleniumExtras.WaitHelpers.dll
-C:\Users\Ryanw\OneDrive\Documents\GitHub\Sports-Results-aka-WebScraper\bin\Debug\net9.0\WebDriver.dll

@@ -17,7 +17,8 @@ public interface IEmailService
 public class TimerChecker(
     IConfiguration configuration,
     IScraper scraper,
-    IEmailService emailService)
+    IEmailService emailService
+)
 {
     private readonly IConfiguration _configuration = configuration;
     internal Timer Checker;
@@ -27,12 +28,17 @@ public class TimerChecker(
         try
         {
             var results = await scraper.Run();
-            if (results != null)
+            if (results.EmailTableRows.Length is not 0)
+            {
                 await emailService.SendEmail(results);
+                // Don't run again if successful
+            }
             else
-                AnsiConsole.MarkupLine("[Bold  Red]Scraper returned null results[/]");
-
-            await SetTimer();
+            {
+                AnsiConsole.MarkupLine("[red]Scraper returned null results, trying again[/]");
+                Thread.Sleep(2000);  // Sleep for 2 seconds
+                await scraper.Run(); // Only run again if the first attempt failed
+            }
         }
         catch (Exception ex)
         {
@@ -44,19 +50,16 @@ public class TimerChecker(
     {
         try
         {
-            var due = new DateTime(
-                DateTime.Now.Year,
-                DateTime.Now.Month,
-                DateTime.Now.Day,
-                15,
-                24,
-                0
-            );
+            // Dispose existing timer if any
+            Checker?.Dispose();
+
+            // Set initial run to 10 seconds from now
+            var due = DateTime.Now.AddSeconds(10);
             var span = due.Subtract(DateTime.Now);
 
             while (span.TotalMilliseconds < 0)
             {
-                due = due.AddDays(1);
+                due = due.AddMinutes(1);
                 span = due.Subtract(DateTime.Now);
             }
 
@@ -66,11 +69,12 @@ public class TimerChecker(
                 Math.Round(span.TotalMinutes, 0)
             );
 
+            // Create new timer with initial delay and 1 hour interval
             Checker = new Timer(
-                TimerCallback,
-                null,
-                (int)span.TotalMinutes,
-                Timeout.Infinite
+                TimerCallback, 
+                null, 
+                (int)span.TotalMilliseconds,
+                TimeSpan.FromHours(1).Milliseconds
             );
         }
         catch (Exception ex)

@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+
+using Spectre.Console;
+
 using WebScraper_RyanW84.Service;
 
 namespace WebScraper_RyanW84;
@@ -14,8 +17,6 @@ internal class Program
             .AddUserSecrets<Program>()
             .Build();
 
-        IEmailService emailService = new Email(config);
-
         if (args.Length == 0)
             throw new ArgumentException(
                 "Please specify which scraper to use: '-h' for Halestorm Gigs or '-b' for Basketball Results.");
@@ -27,11 +28,13 @@ internal class Program
             _ => throw new ArgumentException("Invalid scraper selection. Use '-h' or '-b'.")
         };
 
+        IEmailService emailService = new Email(config, scraper);
+
         var timerChecker = new TimerChecker(config, scraper, emailService);
         await timerChecker.SetTimer();
 
         // Prevent app from exiting
-        Console.WriteLine("Press Enter to exit...");
+        AnsiConsole.MarkupLine("[bold red]Press any key to exit[/]");
         Console.ReadLine();
     }
 }

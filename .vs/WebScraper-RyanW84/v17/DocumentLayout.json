@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\service\\timerchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:service\\timerchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\service\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:service\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\service\\halestormgigscraper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:service\\halestormgigscraper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\service\\timerchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:service\\timerchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\service\\basketballscraper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -20,10 +24,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Ryanw\\AppData\\Roaming\\Microsoft\\UserSecrets\\ac4898b5-3d97-441b-b24d-f568d11699eb\\secrets.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\service\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|solutionrelative:service\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{977A283E-38EA-4444-8BCD-99E9EF825030}|WebScraper-RyanW84.csproj|c:\\users\\ryanw\\onedrive\\documents\\github\\sports-results-aka-webscraper\\ui\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,37 +41,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 206,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "HalestormGigScraper.cs",
               "DocumentMoniker": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\HalestormGigScraper.cs",
               "RelativeDocumentMoniker": "Service\\HalestormGigScraper.cs",
               "ToolTip": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\HalestormGigScraper.cs",
               "RelativeToolTip": "Service\\HalestormGigScraper.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAADgAAABDAAAAAAAAAA==",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAswCEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-12T13:45:53.58Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "Email.cs",
               "DocumentMoniker": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\Email.cs",
               "RelativeDocumentMoniker": "Service\\Email.cs",
               "ToolTip": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\Email.cs",
               "RelativeToolTip": "Service\\Email.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAYwAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAUwEgAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-02T12:05:28.128Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "secrets.json",
               "DocumentMoniker": "C:\\Users\\Ryanw\\AppData\\Roaming\\Microsoft\\UserSecrets\\ac4898b5-3d97-441b-b24d-f568d11699eb\\secrets.json",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\AppData\\Roaming\\Microsoft\\UserSecrets\\ac4898b5-3d97-441b-b24d-f568d11699eb\\secrets.json",
@@ -84,33 +84,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "TimerChecker.cs",
               "DocumentMoniker": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\TimerChecker.cs",
               "RelativeDocumentMoniker": "Service\\TimerChecker.cs",
               "ToolTip": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\TimerChecker.cs",
               "RelativeToolTip": "Service\\TimerChecker.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAkwDMAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAvwEwAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-01T20:17:35.809Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAiwBoAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAxwBMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-01T19:49:30.11Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "BasketballScraper.cs",
               "DocumentMoniker": "C:\\Users\\Ryanw\\OneDrive\\Documents\\GitHub\\Sports-Results-aka-WebScraper\\Service\\BasketballScraper.cs",
               "RelativeDocumentMoniker": "Service\\BasketballScraper.cs",
@@ -118,8 +118,7 @@
               "RelativeToolTip": "Service\\BasketballScraper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-28T20:15:50.673Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-28T20:15:50.673Z"
             },
             {
               "$type": "Document",
@@ -142,8 +141,7 @@
               "RelativeToolTip": "UI\\Menu.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAABOwBsAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-28T20:02:14.65Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-28T20:02:14.65Z"
             }
           ]
         }

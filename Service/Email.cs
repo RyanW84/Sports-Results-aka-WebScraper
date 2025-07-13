@@ -4,17 +4,25 @@ using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
+using Spectre.Console;
 using WebScraper_RyanW84.Models;
 
 namespace WebScraper_RyanW84.Service;
 
-public class Email(IConfiguration config) : IEmailService // Implement the IEmailService interface
+public class Email : IEmailService
 {
-    public async Task SendEmail(Results results) // This method now implements the interface
-    {
-        // Rest of the existing code remains the same
-        var email = new MimeMessage();
+    private readonly IConfiguration _config;
+    private readonly IScraper _scraper;
 
+    public Email(IConfiguration config, IScraper scraper)
+    {
+        _config = config;
+        _scraper = scraper;
+    }
+
+    public async Task SendEmail(Results results)
+    {
+        var email = new MimeMessage();
 
         email.From.Add(new MailboxAddress("Ryan Weavers", "ryanweavers@gmail.com"));
         email.To.Add(new MailboxAddress("Bob Jones", "ryanweavers@gmail.com"));
@@ -24,7 +32,8 @@ public class Email(IConfiguration config) : IEmailService // Implement the IEmai
         sb.AppendLine("<html><body>");
         sb.AppendLine("<p>Hello Bob,</p>");
         sb.AppendLine(
-            $"<p>Here are the basketball results collected on <b>{DateTime.Now:dddd, MMMM dd, yyyy HH:mm}</b>:</p>");
+            $"<p>Here are your WebScraper results collected on <b>{DateTime.Now:dddd, MMMM dd, yyyy HH:mm:ss}</b>:</p>"
+        );
         sb.AppendLine($"<h2>{results.EmailTitle}</h2>");
         sb.AppendLine("<table border='1' cellpadding='5' cellspacing='0'>");
         sb.AppendLine("<tr>");
@@ -46,13 +55,23 @@ public class Email(IConfiguration config) : IEmailService // Implement the IEmai
 
         email.Body = new TextPart(TextFormat.Html) { Text = sb.ToString() };
 
-        var smtpUsername = config["SmtpUsername"];
-        var smtpPassword = config["SmtpPassword"];
+        var smtpUsername = _config["SmtpUsername"];
+        var smtpPassword = _config["SmtpPassword"];
 
         using var smtp = new SmtpClient();
         await smtp.ConnectAsync("smtp.gmail.com", 587, false);
         await smtp.AuthenticateAsync(smtpUsername, smtpPassword);
-        await smtp.SendAsync(email);
-        await smtp.DisconnectAsync(true);
+        if (results.EmailTableRows is null)
+        {
+            AnsiConsole.MarkupLine("No Rows retrieved, recalling scraper");
+            await _scraper.Run();
+        }
+        else
+        {
+			await smtp.SendAsync(email);
+			await smtp.DisconnectAsync(true);
+            AnsiConsole.MarkupLine("[Green] Email sent succesfully[/]");
+		}
+     
     }
 }

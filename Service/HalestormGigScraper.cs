@@ -11,7 +11,7 @@ namespace WebScraper_RyanW84.Service;
 public class HalestormScraper() : IScraper
 {
     private const string Url = "https://www.halestormrocks.com/#tour";
-    private const string TourDateClass = "seated-events-table";
+    private const string TableClassName = "seated-events-table";
     private readonly Helpers _helpers;
 
     public HalestormScraper(Helpers helpers)
@@ -50,18 +50,32 @@ public class HalestormScraper() : IScraper
         options.AddArgument("--window-size=1920,1080");
 
         using var driver = new ChromeDriver(options);
+        try
+        {
+            driver.Navigate().GoToUrl(url);
 
-        driver.Navigate().GoToUrl(url);
+            // Wait for the tour section to be visible and have content
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            wait.Until(driver => driver.FindElements(By.ClassName("seated-event-row")).Count > 0);
 
-        // Wait for at least one tour date element to be present
-        var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-        wait.Until(ExpectedConditions.ElementExists(By.ClassName(TourDateClass)));
+            // Add a small delay to ensure all dynamic content is loaded
+            await Task.Delay(2000);
 
-        var html = driver.PageSource;
-
-        var doc = new HtmlDocument();
-        doc.LoadHtml(html);
-        return doc;
+            var html = driver.PageSource;
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            return doc;
+        }
+        catch (WebDriverTimeoutException ex)
+        {
+            Console.WriteLine(ex);
+            AnsiConsole.MarkupLine("[red]Timeout waiting for tour dates to load. Retrying...[/]");
+            throw;
+        }
+        finally
+        {
+            driver?.Quit();
+        }
     }
 
     private string[] GetTableHeadings(HtmlDocument document)
@@ -99,34 +113,27 @@ public class HalestormScraper() : IScraper
                 var date = ExtractNodeText(node, "seated-event-date");
                 var location = ExtractNodeText(node, "location");
                 var venue = ExtractNodeText(node, "seated-event-venue-name");
-                var moreInfo = ExtractLinkHref(node);
+                var moreInfo = ExtractLinkHref(node, "seated-event-link1");
 
                 rows.Add(new[] { date, location, venue, moreInfo });
             }
         }
 
-        return rows.ToArray();
+        return [.. rows];
     }
 
-    private string ExtractNodeText(HtmlNode parentNode, string className)
-    {
-        return parentNode
-                .SelectSingleNode($".//div[contains(@class, '{className}')]")
-                ?.InnerText.Trim() ?? "N/A";
-    }
+    private string ExtractNodeText(HtmlNode parentNode, string className) =>
+        parentNode.SelectSingleNode($".//div[contains(@class, '{className}')]")?.InnerText.Trim()
+        ?? "N/A";
 
-    private string ExtractLinkHref(HtmlNode parentNode)
-    {
-        return parentNode
-                .SelectSingleNode(".//a[contains(@class, 'ticket-link')]")
-                ?.GetAttributeValue("href", "") ?? "";
-    }
+    private string ExtractLinkHref(HtmlNode parentNode, string v) =>
+        parentNode
+            .SelectSingleNode(".//a[contains(@class, 'ticket-link')]")
+            ?.GetAttributeValue("href", "") ?? "";
 
-    private string GetTitle(HtmlDocument document)
-    {
-        return document.DocumentNode.SelectSingleNode("//title")?.InnerText.Trim()
-            ?? "Halestorm Upcoming Gigs";
-    }
+    private string GetTitle(HtmlDocument document) =>
+        document.DocumentNode.SelectSingleNode("//title")?.InnerText.Trim()
+        ?? "Halestorm Upcoming Gigs";
 
     private void DisplayScraperInfo(string title)
     {
