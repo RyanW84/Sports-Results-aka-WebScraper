@@ -31,10 +31,10 @@ internal class Program
         IEmailService emailService = new Email(config, scraper);
 
         var timerChecker = new TimerChecker(config, scraper, emailService);
-        await timerChecker.SetTimer();
+		await timerChecker.SetTimer();
 
-        // Prevent app from exiting
-        AnsiConsole.MarkupLine("[bold red]Press any key to exit[/]");
+		// Prevent app from exiting
+		AnsiConsole.MarkupLine("[bold red]Press any key to exit[/]");
         Console.ReadLine();
     }
 }

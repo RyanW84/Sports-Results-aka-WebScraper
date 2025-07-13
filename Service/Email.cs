@@ -70,7 +70,7 @@ public class Email : IEmailService
         {
 			await smtp.SendAsync(email);
 			await smtp.DisconnectAsync(true);
-            AnsiConsole.MarkupLine("[Green] Email sent succesfully[/]");
+            AnsiConsole.MarkupLine("[Green]Email sent succesfully[/]");
 		}
      
     }

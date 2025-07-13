@@ -113,9 +113,12 @@ public class HalestormScraper() : IScraper
                 var date = ExtractNodeText(node, "seated-event-date");
                 var location = ExtractNodeText(node, "location");
                 var venue = ExtractNodeText(node, "seated-event-venue-name");
-                var moreInfo = ExtractLinkHref(node, "seated-event-link1");
+				var ticketUrl = ExtractLinkHref(node , "seated-event-link seated-event-link1");
+				var moreInfo = !string.IsNullOrEmpty(ticketUrl) ? $"{ticketUrl}" : "N/A";
 
-                rows.Add(new[] { date, location, venue, moreInfo });
+
+
+				rows.Add(new[] { date, location, venue, moreInfo });
             }
         }
 
@@ -128,7 +131,7 @@ public class HalestormScraper() : IScraper
 
     private string ExtractLinkHref(HtmlNode parentNode, string v) =>
         parentNode
-            .SelectSingleNode(".//a[contains(@class, 'ticket-link')]")
+            .SelectSingleNode(".//a[contains(@class, 'seated-event-link1')]")
             ?.GetAttributeValue("href", "") ?? "";
 
     private string GetTitle(HtmlDocument document) =>
@@ -137,12 +140,13 @@ public class HalestormScraper() : IScraper
 
     private void DisplayScraperInfo(string title)
     {
+        Console.Clear();
         AnsiConsole.Write(
             new Rule("[bold italic yellow]Halestorm Gigs Scraper[/]").RuleStyle("yellow").Centered()
         );
 
         Console.WriteLine(title);
         Console.WriteLine();
-        AnsiConsole.MarkupLine("[Yellow]Passing data for SendEmail[/]");
+        AnsiConsole.MarkupLine("[Yellow]Passing data for Email to be sent[/]");
     }
 }

@@ -31,57 +31,67 @@ public class TimerChecker(
             if (results.EmailTableRows.Length is not 0)
             {
                 await emailService.SendEmail(results);
-                // Don't run again if successful
+                // Reset timer for next check in 24 hours
+                ResetTimer();
+                AnsiConsole.MarkupLine(
+                    "[green]Scrape successful - Next check scheduled in 24 hours[/]"
+                );
             }
             else
             {
-                AnsiConsole.MarkupLine("[red]Scraper returned null results, trying again[/]");
-                Thread.Sleep(2000);  // Sleep for 2 seconds
+                AnsiConsole.MarkupLine(
+                    "[red]Scraper returned no results, trying again in 2 seconds[/]"
+                );
+                Thread.Sleep(2000); // Sleep for 2 seconds
                 await scraper.Run(); // Only run again if the first attempt failed
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex}");
+            // Reset timer to try again in 1 hour on error
+            ResetTimer(TimeSpan.FromHours(1));
+        }
+    }
+
+    private void ResetTimer(TimeSpan? interval = null)
+    {
+        try
+        {
+            // Default interval is 24 hours if not specified
+            interval ??= TimeSpan.FromDays(1);
+
+            // Dispose existing timer
+            Checker?.Dispose();
+
+            var due = DateTime.Now.Add(interval.Value);
+            var span = due.Subtract(DateTime.Now);
+
+            AnsiConsole.MarkupLine(
+                "[Bold Italic Green]Resetting scraper to check at {0:dd MMM yyyy HH:mm} (~{1} hours {2} minutes)[/]",
+                due,
+                (int)span.TotalHours,
+                span.Minutes
+            );
+
+            // Create new timer with specified interval
+            Checker = new Timer(
+                TimerCallback,
+                null,
+                (int)span.TotalMilliseconds,
+                Timeout.Infinite // Use -1 to ensure timer only runs once per interval
+            );
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error resetting timer: {ex}");
         }
     }
 
     public Task SetTimer()
     {
-        try
-        {
-            // Dispose existing timer if any
-            Checker?.Dispose();
-
-            // Set initial run to 10 seconds from now
-            var due = DateTime.Now.AddSeconds(10);
-            var span = due.Subtract(DateTime.Now);
-
-            while (span.TotalMilliseconds < 0)
-            {
-                due = due.AddMinutes(1);
-                span = due.Subtract(DateTime.Now);
-            }
-
-            AnsiConsole.MarkupLine(
-                "[Bold Italic Green]Setting scraper to check at {0:dd MMM yyyy HH:mm} (~{1} minutes)[/]",
-                due,
-                Math.Round(span.TotalMinutes, 0)
-            );
-
-            // Create new timer with initial delay and 1 hour interval
-            Checker = new Timer(
-                TimerCallback, 
-                null, 
-                (int)span.TotalMilliseconds,
-                TimeSpan.FromHours(1).Milliseconds
-            );
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex}");
-        }
-
+        // Initial timer setup - start in 10 seconds
+        ResetTimer(TimeSpan.FromSeconds(10));
         return Task.CompletedTask;
     }
 }
